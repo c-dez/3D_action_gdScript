@@ -2,7 +2,7 @@ extends Node3D
 
 var player : CharacterBody3D
 var visuals : Node3D
-@export var xSens : float = 0.2
+@export var xSens : float = 0.1
 
 
 
@@ -33,6 +33,8 @@ func _unhandled_input(event):
 			var minRot = 30
 			rotation.x = clamp(rotation.x, deg_to_rad(maxRot), deg_to_rad(minRot))
 		
+			# rotate visuals
+			visuals.rotate_y(deg_to_rad(mouseRelative.x * xSens))
 		
 
 
