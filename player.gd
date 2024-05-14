@@ -4,17 +4,24 @@ extends CharacterBody3D
 var speed : float = 5.0
 var jump_velocity : float = 4.5
 
+var input_dir : Vector2 = Vector2.ZERO
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _physics_process(delta):
+	GetInput()
 	Gravity(delta)
 	Jump()
 	PlayerMove()
 	
 
 	move_and_slide()
+
+func GetInput() -> void:
+	input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+
 
 func Jump():
 	# Handle jump.
@@ -24,7 +31,6 @@ func Jump():
 func PlayerMove():
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * speed
