@@ -31,7 +31,7 @@ pass
 
 
 func dodge_logic(_delta) -> void:
-	if Input.is_action_just_pressed("fire1"):
+	if Input.is_action_just_pressed("shift"):
 		# count_time se asigna en editor
 		# se asigna a count_time_internal = count_time
 		count_time_internal = count_time
@@ -43,7 +43,6 @@ func dodge_logic(_delta) -> void:
 			velocity.z *= dodge_mult
 		# se resta delta de count_time_internal 
 		count_time_internal -= _delta 
-		print(count_time_internal)
 	elif count_time_internal < 0:
 		# si es menor que cero se asigna a cero
 		count_time_internal = 0
@@ -59,6 +58,7 @@ func rotate_visuals_to_move_direction() -> void:
 			visuals.rotation.y, atan2(-input_dir.x, -input_dir.y), weight)
 	pass
 
+
 func get_input()-> void:
 	input_dir = Input.get_vector("left", "right", "up", "down")
 
@@ -66,6 +66,7 @@ func get_input()-> void:
 func jump()-> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		self.velocity.y = jump_velocity
+
 
 func player_move()-> void:
 	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -75,6 +76,7 @@ func player_move()-> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
+
 
 func apply_gravity(delta)-> void:
 	# Add the gravity.
