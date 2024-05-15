@@ -22,7 +22,6 @@ func _physics_process(delta):
 	apply_gravity(delta)
 	jump()
 	player_move()
-
 	dodge_logic(delta)
 	
 
@@ -30,22 +29,27 @@ func _physics_process(delta):
 	move_and_slide()
 pass
 
-func dodge_logic(_delta):
+
+func dodge_logic(_delta) -> void:
 	if Input.is_action_just_pressed("fire1"):
+		# count_time se asigna en editor
+		# se asigna a count_time_internal = count_time
 		count_time_internal = count_time
-		
+		# count_time_internal se usa para calcular el tiempo en segundos 
 	if count_time_internal > 0:
-		# dodge logic
+		# mientras sea mayur que cero, se ejecuta este bloque
 		if input_dir != Vector2.ZERO:
 			velocity.x *= dodge_mult
 			velocity.z *= dodge_mult
+		# se resta delta de count_time_internal 
 		count_time_internal -= _delta 
 		print(count_time_internal)
 	elif count_time_internal < 0:
+		# si es menor que cero se asigna a cero
 		count_time_internal = 0
 
 
-func rotate_visuals_to_move_direction():
+func rotate_visuals_to_move_direction() -> void:
 	if input_dir !=  Vector2.ZERO:
 
 		# rota visuals hacia el angulo de vector2 input_dir
@@ -55,15 +59,15 @@ func rotate_visuals_to_move_direction():
 			visuals.rotation.y, atan2(-input_dir.x, -input_dir.y), weight)
 	pass
 
-func get_input():
+func get_input()-> void:
 	input_dir = Input.get_vector("left", "right", "up", "down")
 
 
-func jump():
+func jump()-> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		self.velocity.y = jump_velocity
 
-func player_move():
+func player_move()-> void:
 	var direction : Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * speed
@@ -72,7 +76,7 @@ func player_move():
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 
-func apply_gravity(delta):
+func apply_gravity(delta)-> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
