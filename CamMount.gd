@@ -52,9 +52,10 @@ func _unhandled_input(event):
 func draw_gun():
 	if Input.is_action_pressed("fire2"):
 
-		# sensibilidad de el mouse / 2
-		x_sens_ref = x_sens /2
-		y_sens_ref = y_sens /2
+		# divide sensibilidad de mouse 
+		var iron_sight_sens_mod: float = 2.0
+		x_sens_ref = x_sens / iron_sight_sens_mod
+		y_sens_ref = y_sens / iron_sight_sens_mod
 
 		# camara se mueve a fps/ pocicion de CamMount node, por que es el nodo
 		# que contiene a spring_arm
