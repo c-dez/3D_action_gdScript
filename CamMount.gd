@@ -6,6 +6,7 @@ var spring_arm: SpringArm3D
 
 @export var x_sens : float = 0.1
 @export var y_sens : float = 0.12
+# referencias a los valores de engine
 var x_sens_ref: float
 var y_sens_ref: float
 
@@ -22,7 +23,6 @@ func _ready():
 	visuals = get_node("../Visuals")
 	spring_arm = get_child(0, true)
 
-	# referencias a los valores de engine
 	x_sens_ref = x_sens
 	y_sens_ref = y_sens
 
