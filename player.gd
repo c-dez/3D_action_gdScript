@@ -3,10 +3,14 @@ extends CharacterBody3D
 var visuals : Node3D
 var speed : float = 5.0
 var jump_velocity : float = 4.5
-
 var input_dir : Vector2 = Vector2.ZERO
-
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+@export_category("dodge_controls")
+@export var count_time: float = 0.5
+var count_time_internal: float = 0
+@export var dodge_mult: float = 4
+
 
 func _ready():
 	visuals = get_node("Visuals")
@@ -19,9 +23,27 @@ func _physics_process(delta):
 	jump()
 	player_move()
 
+	dodge_logic(delta)
+	
+
 
 	move_and_slide()
 pass
+
+func dodge_logic(_delta):
+	if Input.is_action_just_pressed("fire1"):
+		count_time_internal = count_time
+		
+	if count_time_internal > 0:
+		# dodge logic
+		if input_dir != Vector2.ZERO:
+			velocity.x *= dodge_mult
+			velocity.z *= dodge_mult
+		count_time_internal -= _delta 
+		print(count_time_internal)
+	elif count_time_internal < 0:
+		count_time_internal = 0
+
 
 func rotate_visuals_to_move_direction():
 	if input_dir !=  Vector2.ZERO:
