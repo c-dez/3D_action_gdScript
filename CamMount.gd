@@ -49,7 +49,7 @@ func _unhandled_input(event):
 
 			rotation.x = clamp(rotation.x, rad_max_rot, rad_min_rot)
 		
-func draw_gun():
+func draw_gun()-> void:
 	if Input.is_action_pressed("fire2"):
 
 		# divide sensibilidad de mouse 
