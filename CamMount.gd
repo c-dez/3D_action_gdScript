@@ -1,8 +1,10 @@
 extends Node3D
 
+
 var player : CharacterBody3D
 var visuals : Node3D
 var spring_arm: SpringArm3D
+var cross_hair: TextureRect
 
 @export var x_sens : float = 0.1
 @export var y_sens : float = 0.12
@@ -17,11 +19,14 @@ var y_sens_ref: float
 
 
 
+
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	player = get_node("..")
 	visuals = get_node("../Visuals")
-	spring_arm = get_child(0, true)
+	spring_arm = get_child(1, true)
+	cross_hair = get_node("CrossHair")
 
 	x_sens_ref = x_sens
 	y_sens_ref = y_sens
@@ -56,6 +61,8 @@ func draw_gun()-> void:
 		x_sens_ref = x_sens /2
 		y_sens_ref = y_sens /2
 
+		cross_hair.visible = true
+
 		# camara se mueve a fps/ pocicion de CamMount node, por que es el nodo
 		# que contiene a spring_arm
 		spring_arm.spring_length = 0
@@ -64,5 +71,7 @@ func draw_gun()-> void:
 		x_sens_ref = x_sens
 		y_sens_ref = y_sens
 		spring_arm.spring_length = spring_distance
+
+		cross_hair.visible = false
 
 
