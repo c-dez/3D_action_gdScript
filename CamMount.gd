@@ -23,7 +23,7 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	player = get_node("..")
 	visuals = get_node("../Visuals")
-	spring_arm = get_child(1, true)
+	spring_arm = get_node("SpringArm3D")
 	cross_hair = get_node("CrossHair")
 
 	x_sens_ref = x_sens
@@ -34,13 +34,13 @@ func _physics_process(_delta):
 	
 	
 
-func _unhandled_input(event):
+func _unhandled_input(event)-> void:
 	if event is InputEventMouseMotion:
 		if event.relative:
 
 			var mouse_relative : Vector2 = event.relative
 			# rotates the player in horizontal
-			player.rotate_y(deg_to_rad(-mouse_relative.x * x_sens_ref))
+			player.rotate_y(deg_to_rad(-mouse_relative.x * x_sens_ref) )
 			# rotate visuals horizontal
 			visuals.rotate_y(deg_to_rad(mouse_relative.x * x_sens_ref))
 
