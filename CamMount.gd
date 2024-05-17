@@ -19,8 +19,6 @@ var y_sens_ref: float
 
 
 
-
-
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	player = get_node("..")
@@ -61,6 +59,7 @@ func draw_gun()-> void:
 		x_sens_ref = x_sens /2
 		y_sens_ref = y_sens /2
 
+		# turns visible cross hair
 		cross_hair.visible = true
 
 		# camara se mueve a fps/ pocicion de CamMount node, por que es el nodo
@@ -72,6 +71,7 @@ func draw_gun()-> void:
 		y_sens_ref = y_sens
 		spring_arm.spring_length = spring_distance
 
+		# turns visible false cross hair
 		cross_hair.visible = false
 
 
